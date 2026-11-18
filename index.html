@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>我的小工具 App</title>
+
+    <!-- 讓 iOS Safari 支援全螢幕 App 模式 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="我的App" />
+
+    <!-- 連結樣式表 -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- 連結 PWA 設定檔 -->
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <h1>我的專屬小工具</h1>
+        <p>PWA 原生體驗測試</p>
+      </header>
+
+      <main>
+        <div class="card">
+          <h2>點擊計數器</h2>
+          <div id="counter" class="number">0</div>
+          <button id="btn" class="primary-btn">點我 +1</button>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // 簡單的互動邏輯
+      let count = 0;
+      const btn = document.getElementById("btn");
+      const counter = document.getElementById("counter");
+
+      btn.addEventListener("click", () => {
+        count++;
+        counter.textContent = count;
+        // 觸發手機震動回饋（如果支援）
+        if (navigator.vibrate) navigator.vibrate(50);
+      });
+
+      // 註冊 Service Worker 支援離線
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("sw.js")
+          .then(() => console.log("Service Worker 註冊成功"))
+          .catch((err) => console.log("Service Worker 失敗", err));
+      }
+    </script>
+  </body>
+</html>
