@@ -1,7 +1,12 @@
 self.addEventListener("install", (e) => {
   e.waitUntil(
-    caches.open("my-pwa-store").then((cache) => {
-      return cache.addAll(["./index.html", "./style.css", "./manifest.json"]);
+    caches.open("my-pwa-store-v2").then((cache) => {
+      return cache.addAll([
+        "./index.html",
+        "./style.css",
+        "./manifest.json",
+        "./icon.png",
+      ]);
     }),
   );
 });
